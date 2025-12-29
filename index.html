@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PROPERTI AI - Login</title>
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/gerryramdani-star/properti-ai-sp/refs/heads/main/asset/favicon%20propertiAI.png">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -15,11 +15,13 @@
             background-color: #050505;
             color: #ffffff;
             overflow-x: hidden;
+            /* Prevent scrolling issues on mobile */
+            -webkit-tap-highlight-color: transparent;
         }
 
         /* Glassmorphism Effect */
         .glass-card {
-            background: rgba(20, 20, 20, 0.6);
+            background: rgba(20, 20, 20, 0.75); /* Sedikit lebih gelap agar teks lebih terbaca di mobile */
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 215, 0, 0.15);
@@ -61,6 +63,10 @@
             box-shadow: 0 0 20px rgba(253, 185, 49, 0.4);
             transform: translateY(-2px);
         }
+        
+        .btn-gold:active {
+            transform: scale(0.98);
+        }
 
         /* Utility animations */
         .hidden-view {
@@ -86,7 +92,7 @@
             40%, 60% { transform: translate3d(4px, 0, 0); }
         }
 
-        /* Background Blobs Animation */
+        /* Background Blobs Animation - Adjusted sizes for mobile */
         .blob {
             position: absolute;
             filter: blur(80px);
@@ -101,9 +107,15 @@
             100% { transform: translate(0, 0) scale(1); }
         }
 
-        .blob-1 { top: -10%; left: -10%; width: 400px; height: 400px; background: #C6930A; animation-delay: 0s; }
-        .blob-2 { bottom: -10%; right: -10%; width: 350px; height: 350px; background: #5a4505; animation-delay: 2s; }
-        .blob-3 { top: 40%; left: 50%; transform: translate(-50%, -50%); width: 200px; height: 200px; background: #FFD700; opacity: 0.15; animation-delay: 4s; }
+        .blob-1 { top: -10%; left: -10%; width: 300px; height: 300px; background: #C6930A; animation-delay: 0s; }
+        .blob-2 { bottom: -10%; right: -10%; width: 250px; height: 250px; background: #5a4505; animation-delay: 2s; }
+        .blob-3 { top: 40%; left: 50%; transform: translate(-50%, -50%); width: 150px; height: 150px; background: #FFD700; opacity: 0.15; animation-delay: 4s; }
+
+        @media (min-width: 768px) {
+            .blob-1 { width: 400px; height: 400px; }
+            .blob-2 { width: 350px; height: 350px; }
+            .blob-3 { width: 200px; height: 200px; }
+        }
 
         .grid-bg {
             background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
@@ -116,7 +128,7 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center relative p-4">
+<body class="min-h-[100dvh] flex flex-col items-center justify-center relative p-4 md:p-6 overflow-hidden">
 
     <!-- Ambient Background Elements -->
     <div class="blob blob-1 rounded-full"></div>
@@ -125,43 +137,43 @@
     <div class="grid-bg"></div>
 
     <!-- VIEW 1: LOGIN SECTION -->
-    <main id="login-view" class="relative z-10 w-full max-w-sm mx-auto transition-all duration-500">
-        <div class="glass-card rounded-3xl p-8 shadow-2xl">
-            <div class="text-center mb-8">
-                <h2 class="text-2xl font-bold mb-1 tracking-tight">Selamat Datang</h2>
-                <p class="text-xs text-gray-400 font-light">Silakan masuk untuk akses Properti AI</p>
+    <main id="login-view" class="relative z-10 w-full max-w-[360px] md:max-w-sm mx-auto transition-all duration-500">
+        <div class="glass-card rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-2xl">
+            <div class="text-center mb-6 md:mb-8">
+                <h2 class="text-xl md:text-2xl font-bold mb-1 tracking-tight">Selamat Datang</h2>
+                <p class="text-[11px] md:text-xs text-gray-400 font-light">Silakan masuk untuk akses Properti AI</p>
             </div>
 
-            <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-5">
+            <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4 md:space-y-5">
                 <!-- Username Input -->
                 <div class="space-y-1">
-                    <label class="text-xs text-[#FFD700] uppercase tracking-wider font-semibold ml-1">Username</label>
+                    <label class="text-[10px] md:text-xs text-[#FFD700] uppercase tracking-wider font-semibold ml-1">Username</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <i data-lucide="user" class="h-4 w-4 text-gray-500"></i>
                         </div>
-                        <input type="text" id="username" class="glass-input w-full rounded-xl py-3 pl-10 pr-4 text-sm focus:ring-0 placeholder-gray-600" placeholder="Masukkan username" autocomplete="off">
+                        <input type="text" id="username" class="glass-input w-full rounded-xl py-3 pl-10 pr-4 text-base md:text-sm focus:ring-0 placeholder-gray-600" placeholder="Masukkan username" autocomplete="off">
                     </div>
                 </div>
 
                 <!-- Password Input -->
                 <div class="space-y-1">
-                    <label class="text-xs text-[#FFD700] uppercase tracking-wider font-semibold ml-1">Password</label>
+                    <label class="text-[10px] md:text-xs text-[#FFD700] uppercase tracking-wider font-semibold ml-1">Password</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <i data-lucide="lock" class="h-4 w-4 text-gray-500"></i>
                         </div>
-                        <input type="password" id="password" class="glass-input w-full rounded-xl py-3 pl-10 pr-4 text-sm focus:ring-0 placeholder-gray-600" placeholder="••••••••" autocomplete="off">
+                        <input type="password" id="password" class="glass-input w-full rounded-xl py-3 pl-10 pr-4 text-base md:text-sm focus:ring-0 placeholder-gray-600" placeholder="••••••••" autocomplete="off">
                     </div>
                 </div>
 
                 <!-- Error Message -->
-                <div id="error-msg" class="hidden text-red-400 text-xs text-center bg-red-900/20 py-2 rounded-lg border border-red-500/20">
+                <div id="error-msg" class="hidden text-red-400 text-[10px] md:text-xs text-center bg-red-900/20 py-2 rounded-lg border border-red-500/20">
                     Username atau password salah!
                 </div>
 
                 <!-- Submit Button -->
-                <button type="submit" class="w-full btn-gold rounded-xl py-3 font-bold text-sm tracking-wide shadow-lg mt-4">
+                <button type="submit" class="w-full btn-gold rounded-xl py-3 md:py-3.5 font-bold text-sm tracking-wide shadow-lg mt-2 md:mt-4 active:scale-95 transition-transform">
                     MASUK SEKARANG
                 </button>
             </form>
@@ -174,16 +186,16 @@
 
 
     <!-- VIEW 2: MAIN CONTENT (Hidden by default) -->
-    <main id="main-view" class="hidden-view relative z-10 w-full max-w-md mx-auto">
+    <main id="main-view" class="hidden-view relative z-10 w-full max-w-[360px] md:max-w-md mx-auto">
         
         <!-- Glass Card -->
-        <div class="glass-card rounded-3xl p-8 md:p-10 text-center transform transition-all hover:scale-[1.01] duration-500">
+        <div class="glass-card rounded-2xl md:rounded-3xl p-6 md:p-10 text-center transform transition-all hover:scale-[1.01] duration-500">
             
             <!-- Icon / Logo Area -->
-            <div class="mb-6 flex justify-center">
-                <div class="w-16 h-16 rounded-2xl bg-[#FFD700] flex items-center justify-center shadow-lg shadow-yellow-500/30">
-                    <!-- Menggunakan Inline SVG agar ikon pasti terlihat -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+            <div class="mb-4 md:mb-6 flex justify-center">
+                <div class="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-[#FFD700] flex items-center justify-center shadow-lg shadow-yellow-500/30">
+                    <!-- Inline SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7 md:w-8 md:h-8">
                         <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
                         <polyline points="9 22 9 12 15 12 15 22"/>
                     </svg>
@@ -191,38 +203,38 @@
             </div>
 
             <!-- Headline -->
-            <h1 class="text-4xl md:text-5xl font-bold mb-2 tracking-tight drop-shadow-sm">
+            <h1 class="text-3xl md:text-5xl font-bold mb-2 tracking-tight drop-shadow-sm leading-tight">
                 <span class="text-white">PROPERTI</span> <span class="text-gold-gradient">AI</span>
             </h1>
 
             <!-- Subheadline / Description -->
-            <p class="text-gray-400 text-sm md:text-base font-light mb-8 leading-relaxed">
+            <p class="text-gray-400 text-xs md:text-base font-light mb-6 md:mb-8 leading-relaxed max-w-[90%] mx-auto">
                 Revolusi Properti 2026. Ciptakan visual profesional dalam hitungan detik. Tanpa fotografer, tanpa ribet.
             </p>
 
             <!-- Decorative Divider -->
-            <div class="flex items-center justify-center gap-2 mb-8 opacity-30">
-                <div class="h-[1px] w-12 bg-gradient-to-r from-transparent to-[#FFD700]"></div>
+            <div class="flex items-center justify-center gap-2 mb-6 md:mb-8 opacity-30">
+                <div class="h-[1px] w-8 md:w-12 bg-gradient-to-r from-transparent to-[#FFD700]"></div>
                 <div class="w-1 h-1 rounded-full bg-[#FFD700]"></div>
-                <div class="h-[1px] w-12 bg-gradient-to-l from-transparent to-[#FFD700]"></div>
+                <div class="h-[1px] w-8 md:w-12 bg-gradient-to-l from-transparent to-[#FFD700]"></div>
             </div>
 
             <!-- CTA Button -->
-            <a href="https://gemini.google.com/share/6b2618749f56" target="_blank" class="block w-full group relative">
+            <a href="https://gemini.google.com/share/6b2618749f56" target="_blank" class="block w-full group relative touch-manipulation">
                 <div class="absolute -inset-0.5 bg-gradient-to-r from-[#FFD700] to-[#FDB931] rounded-xl blur opacity-30 group-hover:opacity-60 transition duration-200"></div>
-                <button class="relative w-full btn-gold rounded-xl py-4 px-6 font-bold text-lg tracking-wide shadow-xl flex items-center justify-center gap-2">
+                <button class="relative w-full btn-gold rounded-xl py-3.5 md:py-4 px-6 font-bold text-base md:text-lg tracking-wide shadow-xl flex items-center justify-center gap-2">
                     <span>AKSES TOOLS</span>
-                    <i data-lucide="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
+                    <i data-lucide="arrow-right" class="w-4 h-4 md:w-5 md:h-5 transition-transform group-hover:translate-x-1"></i>
                 </button>
             </a>
 
             <!-- Footer Note -->
             <div class="mt-6">
-                <p class="text-[10px] text-gray-500 uppercase tracking-widest">
+                <p class="text-[9px] md:text-[10px] text-gray-500 uppercase tracking-widest">
                     Property Image Optimizer &bull; v2.0
                 </p>
                 <!-- Logout small link -->
-                <button onclick="logout()" class="mt-4 text-xs text-[#FFD700] opacity-50 hover:opacity-100 transition-opacity">
+                <button onclick="logout()" class="mt-4 text-[10px] md:text-xs text-[#FFD700] opacity-50 hover:opacity-100 transition-opacity p-2">
                     Keluar / Logout
                 </button>
             </div>
@@ -247,7 +259,8 @@
         function handleLogin(e) {
             e.preventDefault();
             
-            const userIn = document.getElementById('username').value;
+            // Get inputs safely
+            const userIn = document.getElementById('username').value.trim();
             const passIn = document.getElementById('password').value;
             const errorMsg = document.getElementById('error-msg');
             const loginCard = document.querySelector('#login-view .glass-card');
@@ -259,16 +272,24 @@
             // Validation Logic
             if (userIn === CREDENTIALS.username && passIn === CREDENTIALS.password) {
                 // SUCCESS
-                switchView('main');
+                // Disable button to prevent double submit
+                const btn = e.target.querySelector('button[type="submit"]');
+                if(btn) btn.innerHTML = '<span class="animate-pulse">MEMPROSES...</span>';
+                
+                setTimeout(() => {
+                    switchView('main');
+                    if(btn) btn.innerHTML = 'MASUK SEKARANG';
+                }, 400); // Small delay for UX feel
             } else {
                 // FAIL
-                // Trigger reflow to restart animation if clicked repeatedly
+                // Trigger reflow to restart animation
                 void loginCard.offsetWidth; 
                 loginCard.classList.add('shake');
                 errorMsg.classList.remove('hidden');
                 
                 // Clear password for UX
                 document.getElementById('password').value = '';
+                document.getElementById('password').focus();
             }
         }
 
@@ -279,48 +300,43 @@
             if (target === 'main') {
                 // Hide Login
                 loginView.style.opacity = '0';
+                loginView.style.transform = 'scale(0.95)';
+                
                 setTimeout(() => {
                     loginView.style.display = 'none';
                     // Show Main
                     mainView.style.display = 'block';
-                    // Trigger reflow for animation
+                    // Trigger reflow
                     void mainView.offsetWidth; 
+                    
                     mainView.style.opacity = '1';
+                    mainView.style.transform = 'scale(1)';
                     mainView.classList.remove('hidden-view');
                     mainView.classList.add('fade-in');
-                }, 500);
+                }, 400);
             } else {
                 // Logout Logic
                 mainView.style.opacity = '0';
+                mainView.style.transform = 'scale(0.95)';
+                
                 setTimeout(() => {
                     mainView.style.display = 'none';
                     loginView.style.display = 'block';
+                    // Reset scale
+                    loginView.style.transform = 'scale(1)';
                     void loginView.offsetWidth;
                     loginView.style.opacity = '1';
                     
                     // Reset form
                     document.getElementById('loginForm').reset();
                     document.getElementById('error-msg').classList.add('hidden');
-                }, 500);
+                }, 400);
             }
         }
 
         function logout() {
             switchView('login');
         }
-
-        function copyLink(e) {
-            if (e) e.preventDefault();
-            
-            const toast = document.getElementById('toast');
-            if (toast) {
-                toast.classList.remove('opacity-0');
-                setTimeout(() => {
-                    toast.classList.add('opacity-0');
-                }, 2000);
-            }
-        }
     </script>
 </body>
-
 </html>
